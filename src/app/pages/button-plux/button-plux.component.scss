@@ -1,0 +1,20 @@
+#pay {
+    display: block; /* Asegura que es visible */
+    width: 215px;
+    height: 96px;
+    background-color: #FAFAFA;
+    border: none;
+    cursor: pointer;
+    background-image: url("https://sandbox-paybox.pagoplux.com/img/pagar.png?v1");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain !important;
+    outline: 0;
+}
+
+
+.loader {
+    color: #555;
+    font-weight: bold;
+    margin-top: 20px;
+  }
