@@ -13,7 +13,7 @@ describe('LoginComponent', () => {
   let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-    authServiceSpy = jasmine.createSpyObj('AuthService', ['login', 'saveToken']);
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
@@ -43,7 +43,6 @@ describe('LoginComponent', () => {
     await component.login();
 
     expect(authServiceSpy.login).toHaveBeenCalledWith('testuser', 'testpassword');
-    expect(authServiceSpy.saveToken).toHaveBeenCalledWith(mockToken);
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 

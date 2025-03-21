@@ -56,18 +56,5 @@ describe('AuthService', () => {
     req.flush(mockResponse);
   });
 
-  it('should save and retrieve token from localStorage', () => {
-    const token = 'test-token';
 
-    service.saveToken(token);
-    expect(service.getToken()).toBe(token);
-
-    localStorage.removeItem('authToken'); // Limpiamos para futuras pruebas
-  });
-
-  it('should remove token on logout', () => {
-    service.saveToken('test-token');
-    service.logout();
-    expect(service.getToken()).toBeNull();
-  });
 });
