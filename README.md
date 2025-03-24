@@ -60,3 +60,15 @@ For more information on using the Angular CLI, including detailed command refere
 
 ![image](https://github.com/user-attachments/assets/3b3651e7-4400-4155-b4b2-c5ae0d3d884f)
 
+![image](https://github.com/user-attachments/assets/552092f0-4b5d-44d1-9ddd-74c8de9fcfd5)
+
+![image](https://github.com/user-attachments/assets/6237d6da-2ed8-4386-8a81-345fb4b7abec)
+
+![image](https://github.com/user-attachments/assets/71912e09-d0c7-4016-9a06-14236f0aef7a)
+
+![image](https://github.com/user-attachments/assets/c54ccfe5-cacc-4482-aeb6-6d2832550755)
+
+
+
+
+
