@@ -1,5 +1,32 @@
+
+<div *ngIf="transaccionData === 'procesando'" class="loader-container">
+  <div class="spinner"></div>
+  <p>Consultando pago, por favor espera...</p>
+</div>
+
+
 <div class="container mt-5">
-    <h1>PRUEBA PLUX</h1>
+  <h1>PRUEBA PAGO PLUX</h1>
+  <h1></h1>
+  <app-button-plux (transaccionCompletada)="manejarTransaccion($event)"></app-button-plux>
+
+
+  <div *ngIf="transaccionData != 'procesando' && transaccionData != '' " class="resultado-transaccion">
+    <h3>Transacción Exitosa</h3>
+    <p><strong>Monto:</strong> {{ transaccionData.monto }} USD</p>
+    <p><strong>Fecha:</strong> {{ transaccionData.fecha_transaccion}}</p>
+    <p><strong>Descripción:</strong> {{ transaccionData.descripcion }}</p>
+    <p><strong>Voucher:</strong> {{ transaccionData.voucher }}</p>
+    <p><strong>Estado:</strong> {{ transaccionData.catalogos?.nombre_catalogo }}</p>
+    <p><strong>Banco:</strong> {{ transaccionData.banco }}</p>
+    <p><strong>Marca tarjeta:</strong> {{ transaccionData.marca }}</p>
+    <p><strong>Tarjeta:</strong> {{ transaccionData.detalle?.numero_tarjeta }}</p>
+    <p><strong>Cliente:</strong> {{ transaccionData.cliente?.nombres }} ({{
+      transaccionData.cliente?.numero_identificacion
+      }})</p>
   </div>
 
-  <app-button-plux></app-button-plux>
+
+</div>
+
+

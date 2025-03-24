@@ -1,7 +1,5 @@
 function initData(dataPago) {
-    console.log('entro aka');
     if (Data) {
-        console.log('entro aka');
         Data.init(dataPago);
     }
 

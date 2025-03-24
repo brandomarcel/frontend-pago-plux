@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { isPlatformBrowser, NgIf } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
+import { TransactionService } from '../../services/transaction.service';
 declare var initData: any;
 @Component({
   selector: 'app-button-plux',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './button-plux.component.html',
   styleUrl: './button-plux.component.scss'
 })
 export class ButtonPluxComponent implements OnInit {
-  mostrandoLoader = false;
-  constructor(@Inject(PLATFORM_ID) private platformId: any) { }
+  @Output() transaccionCompletada = new EventEmitter<any>();
+  transaccion: any = null; 
+
+  constructor(@Inject(PLATFORM_ID) private platformId: any,
+  private transactionService: TransactionService) { 
+
+  }
   data = {
     /* Requerido. Email del establecimiento o Id/Class del elemento html
     que posee el valor*/
@@ -30,7 +36,7 @@ export class ButtonPluxComponent implements OnInit {
     PayboxBase12: "10.0",
     /* Requerido. Descripcion del pago o Id/Class del elemento html que
     posee el valor */
-    PayboxDescription: "Prueba PagoPlux",
+    PayboxDescription: "Prueba Pago Brando Cevallos",
     /* Opcional. Lenguaje del Paybox
 * Español: es | (string) (Paybox en español)
 * Ingles: us | (string) (Paybox en Ingles)
@@ -123,46 +129,36 @@ export class ButtonPluxComponent implements OnInit {
     * Identificador del botón o elemento en el comercio del cliente
     * */
     PayboxIdElement: 'idElementoTest',
-
     onAuthorize: (response: any) => {
-      this.mostrandoLoader = true;
-      if (response.status == 'succeeded') {
-        this.mostrandoLoader = false;
-        //jQuery('.container-unpayed').hide(); // Oculta la respuesta solo en Produccion
-
-        response.amount; // Monto
-        response.deferred; // Diferidos
-        response.interest; // Tiene intereses
-        response.interestValue; // Monto intereses
-        response.amountWoTaxes; // Monto impuestos
-        response.cardInfo; // Número de tarjeta encriptado
-        response.cardIssuer; // Marca tarjeta Ejemplo: Visa
-        response.cardType; // Tipo tarjeta Ejemplo: Crédito
-        response.clientID; // Identificación tarjetahabiente
-        response.clientName; // Nombre tarjetahabiente
-        response.fecha; // Fecha de pago
-        response.id_transaccion; // ID de transacción PagoPlux
-        response.state; // Estado del pago
-        response.token; // Voucher del pago
-        response.tipoPago; // Tipo de pago usado
-//e6f64a75-7a45-454d-a08a-73a71aa7d789
-        console.log(response);
+      this.transaccionCompletada.emit('procesando'); 
+      if (response.status === 'succeeded') {    
+        const idTransaction = response.detail.id_transaccion;
+    
+        this.transactionService.consultarTransaccion(idTransaction).subscribe({
+          next: (data) => {
+            this.transaccion = data?.detail?.respuest;
+            this.transaccionCompletada.emit(this.transaccion); 
+          },
+          error: (error) => {
+            console.error('Error al consultar transacción:', error);
+            this.transaccionCompletada.emit(''); 
+          }
+        });
       }
     }
-
+    
+    
   }
 
   ngOnInit(): void {
-    
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         if (typeof initData === 'function') {
           initData(this.data);
-        } else {
-          console.error('initData sigue sin estar definido después del timeout');
         }
       }, 500);
     }
   }
+  
 
 }

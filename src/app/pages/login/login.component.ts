@@ -20,10 +20,9 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   async login() {
-    console.log('aplaste');
     try {
       const response = await firstValueFrom(this.authService.login(this.username, this.password));
-      console.log('response',response);
+      localStorage.setItem('token', response.token);
       this.router.navigate(['/dashboard']);
     } catch (error: unknown) {
       if (error instanceof HttpErrorResponse) {
@@ -34,4 +33,5 @@ export class LoginComponent {
       }
     }
   }
+  
 }
